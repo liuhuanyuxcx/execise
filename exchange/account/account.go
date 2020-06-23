@@ -26,14 +26,13 @@ func (a *Account) SaveMoney(amount float64) {
 }
 
 func (a *Account) DrawMoney(amount float64,index int) error {
-	//a.Lock.Lock()
-	//defer a.Lock.Unlock()
+	a.Lock.Lock()
+	defer a.Lock.Unlock()
 	cur := a.Balance
 	if cur < amount {
 		return errors.New("余额不足。")
 	}
-	fmt.Println(fmt.Sprintf("第%d个人取款%d元。", index, 5000))
-	//time.Sleep(1 * time.Second)
+	fmt.Println(fmt.Sprintf("第%d个人取款%.2f元。", index, amount))
 	a.Balance = cur - amount
 	return nil
 }
